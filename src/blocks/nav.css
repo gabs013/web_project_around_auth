@@ -1,0 +1,37 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__logo-desktop {
+  max-width: 880px;
+  max-height: 74px;
+  margin: 45px auto 0; /* 45px 200px 0;*/
+  /*display: block; /*nuevo*/
+}
+
+.nav__logo-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 581px) and (max-width: 900px) {
+  .nav__logo-desktop {
+    width: 581px;
+    height: 56px;
+    margin-top: 28px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 580px) {
+  .nav__logo-desktop {
+    display: none;
+  }
+
+  .nav__logo-mobile {
+    display: block;
+    width: 320px;
+    height: 56px;
+    margin-top: 28px;
+  }
+}
