@@ -1,3 +1,6 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
@@ -8,12 +11,14 @@ import EditProfile from "./Main/components/forms/EditProfile/EditProfile";
 import EditAvatar from "./Main/components/forms/Avatar/EditAvatar";
 import NewCard from "./Main/components/forms/NewCard/NewCard";
 import ImagePopup from "./Main/components/forms/ImagePopup/ImagePopup";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [popupContent, setPopupContent] = useState(null);
   const [cards, setCards] = useState([]);
+  const [loggedIn] = useState(false);
 
   useEffect(() => {
     api
@@ -157,19 +162,44 @@ function App() {
       }}>
 
       <div className="page">
+
         <Header/>
-        <Main
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          onEditProfile={handleEditProfileClick}
-          onEditAvatar={handleEditAvatarClick}
-          onAddCard={handleAddCardClick}
-          onImageClick={handleImageClick}
-          popup={popupContent}
-          onClosePopup={handleClosePopup}
-        />
-        <Footer/>
+
+        <Routes>
+
+          <Route path='/signin' element={<Login/>} />
+
+          <Route path='/signup' element={<Register/>} />
+
+          <Route
+            path='/'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+              <>
+                <Main
+                  cards={cards}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  onEditProfile={handleEditProfileClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onAddCard={handleAddCardClick}
+                  onImageClick={handleImageClick}
+                  popup={popupContent}
+                  onClosePopup={handleClosePopup}
+                />
+
+                <Footer/>
+              </>
+              </ProtectedRoute>
+            }
+          />    
+
+          <Route
+            path='*'
+            element={<Navigate to='/signin' replace />}
+          />
+
+        </Routes>
       </div>
     </CurrentUserContext.Provider>
   );
