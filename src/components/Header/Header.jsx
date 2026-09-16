@@ -1,7 +1,18 @@
+import { Link, useLocation } from 'react-router-dom';
 import logoDesktop from "../../images/logo-desktop.png";
 import logoMobile from "../../images/logo-mobile.png";
 
 export default function Header() {
+
+  const location = useLocation();
+
+  const isSignup = location.pathname === '/signup';
+  const isSignin = location.pathname === '/signin';
+  const showAuthLink = isSignup || isSignin;
+
+  const linkPath = isSignup ? '/signin' : '/signup';
+  const linkText = isSignup ? 'Iniciar sesión' : 'Regístrate';
+
 
     return(
         <header className="header">
@@ -17,6 +28,13 @@ export default function Header() {
             alt="Logo de la página, tamaño mobile"
             className="nav__logo-mobile"
           />
+
+           {showAuthLink && (
+          <Link to={linkPath} className='nav__auth-link'>
+            {linkText}
+          </Link>
+          )}
+
         </nav>
         
       </header>

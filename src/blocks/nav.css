@@ -2,9 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;/*Nuevo*/
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
 }
 
 .nav__logo-desktop {
+  width: 100%;
   max-width: 880px;
   max-height: 74px;
   margin: 45px auto 0; /* 45px 200px 0;*/
@@ -13,6 +18,23 @@
 
 .nav__logo-mobile {
   display: none;
+}
+
+.nav__auth-link {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  color: #ffffff;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav__auth-link:hover {
+  opacity: 0.6;
 }
 
 @media screen and (min-width: 581px) and (max-width: 900px) {
