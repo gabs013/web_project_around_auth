@@ -29,7 +29,7 @@ class Api {
   //Edita el perfil
   editUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({ name, about }),
     }).then(this._checkResponse);
@@ -38,7 +38,7 @@ class Api {
   //Agrega una nueva tarjeta
   addNewCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
-      method: "POST",
+      method: 'POST',
       headers: this._headers,
       body: JSON.stringify({ name, link }),
     }).then(this._checkResponse);
@@ -47,7 +47,7 @@ class Api {
   //Elimina una tarjeta
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -55,7 +55,7 @@ class Api {
   //Da "like" a una tarjeta
   addLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "PUT",
+      method: 'PUT',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -63,7 +63,7 @@ class Api {
   //Quita "like" a una tarjeta
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -71,7 +71,7 @@ class Api {
   //Actualiza la foto de perfil
   updateUserAvatar({ avatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({ avatar }),
     }).then(this._checkResponse);
@@ -80,10 +80,10 @@ class Api {
 
 // Instancio de la API (¡Uso de mi Token!)
 const api = new Api({
-  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  baseUrl: 'https://around-api.es.tripleten-services.com/v1',
   headers: {
-    authorization: "0d8cff7c-aff7-40ae-b2cb-b0a409b0e764", //Mi Token
-    "Content-Type": "application/json",
+    authorization: '0d8cff7c-aff7-40ae-b2cb-b0a409b0e764', //Mi Token
+    'Content-Type': 'application/json',
   },
 });
 

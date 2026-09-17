@@ -56,7 +56,7 @@ export default function Register({ onRegister }) {
         </form>
 
         <p className='auth__redirect'>
-          ¿Ya eres miembro?{" "}
+          ¿Ya eres miembro?{' '}
           <Link to='/signin' className='auth__link'>
             Inicia sesión aquí
           </Link>

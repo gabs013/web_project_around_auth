@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import CurrentUserContext from "../../../../contexts/CurrentUserContext";
-import Trash from "../../../../images/trash-normal.svg";
-import Like from "../../../../images/Vector.svg";
-import ActiveLike from "../../../../images/Union.png";
+import { useContext } from 'react';
+import CurrentUserContext from '../../../../contexts/CurrentUserContext';
+import Trash from '../../../../images/trash-normal.svg';
+import Like from '../../../../images/Vector.svg';
+import ActiveLike from '../../../../images/Union.png';
 
 export default function Card({
   card,
@@ -17,7 +17,7 @@ export default function Card({
   const { currentUser } = useContext(CurrentUserContext);
 
   const ownerId =
-    typeof card.owner === "string" ? card.owner : card.owner?._id;
+    typeof card.owner === 'string' ? card.owner : card.owner?._id;
 
   const isOwn = ownerId === currentUser._id;
 
@@ -35,19 +35,19 @@ export default function Card({
   }
 
   return(
-    <div className="gallery__photo">
+    <div className='gallery__photo'>
 
       {isOwn && (
         <button
-          type="button"
-          className="gallery__trash-button"
+          type='button'
+          className='gallery__trash-button'
           onClick={handleDeleteClick}
-          aria-label="Eliminar tarjeta"
+          aria-label='Eliminar tarjeta'
         >
           <img
             src={Trash}
-            alt=""
-            className="gallery__trash-icon"
+            alt=''
+            className='gallery__trash-icon'
           />
         </button>
       )}  
@@ -55,24 +55,24 @@ export default function Card({
         <img 
           src={link} 
           alt={name} 
-          className="gallery__about-places" 
+          className='gallery__about-places' 
           onClick={onImageClick}
         />
-        <div className="gallery__footer">
-          <h3 className="gallery__name-place gallery__text-ellipsis">
+        <div className='gallery__footer'>
+          <h3 className='gallery__name-place gallery__text-ellipsis'>
             {name}
           </h3>
 
           <button
-            type="button"
+            type='button'
             className={likeClassName}
-            aria-label="Botón en forma de corazón"
+            aria-label='Botón en forma de corazón'
             onClick={handleLikeClick}
           >
             <img
               src={isLiked ? ActiveLike : Like}
-              alt=""
-              className="gallery__like-icon"
+              alt=''
+              className='gallery__like-icon'
             />
           </button>
         </div>

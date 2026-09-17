@@ -1,19 +1,19 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { register, authorize, checkToken, } from "../utils/auth";
-import Login from "./Login/Login";
-import Register from "./Register/Register";
-import api from "../utils/api";
-import CurrentUserContext from "../contexts/CurrentUserContext";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { register, authorize, checkToken, } from '../utils/auth';
+import Login from './Login/Login';
+import Register from './Register/Register';
+import api from '../utils/api';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
 import Main from './Main/Main';
-import EditProfile from "./Main/components/forms/EditProfile/EditProfile";
-import EditAvatar from "./Main/components/forms/Avatar/EditAvatar";
-import NewCard from "./Main/components/forms/NewCard/NewCard";
-import ImagePopup from "./Main/components/forms/ImagePopup/ImagePopup";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import InfoTooltip from "./InfoTooltip/InfoTooltip";
+import EditProfile from './Main/components/forms/EditProfile/EditProfile';
+import EditAvatar from './Main/components/forms/Avatar/EditAvatar';
+import NewCard from './Main/components/forms/NewCard/NewCard';
+import ImagePopup from './Main/components/forms/ImagePopup/ImagePopup';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import InfoTooltip from './InfoTooltip/InfoTooltip';
 
 function App() {
 
@@ -97,21 +97,21 @@ function App() {
   function handleEditProfileClick() {
     setPopupContent({
       children: <EditProfile/>,
-      containerClassName: "popup__container_send",
+      containerClassName: 'popup__container_send',
     });
   }
   
   function handleEditAvatarClick() {
     setPopupContent({
       children: <EditAvatar/>,
-      containerClassName: "popup__container_send",
+      containerClassName: 'popup__container_send',
     });
   }
   
   function handleAddCardClick() {
     setPopupContent({
       children: <NewCard/>,
-      containerClassName: "popup__container_send",
+      containerClassName: 'popup__container_send',
     });
   }
   
@@ -124,7 +124,7 @@ function App() {
           link={card.link}
         />
       ),
-      containerClassName: "popup__container_image",
+      containerClassName: 'popup__container_image',
     });
   }
   
@@ -242,7 +242,7 @@ function App() {
         handleAddPlaceSubmit,
       }}>
 
-      <div className="page">
+      <div className='page'>
 
         <Header
           loggedIn={loggedIn}

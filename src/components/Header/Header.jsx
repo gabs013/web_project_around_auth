@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logoDesktop from "../../images/logo-desktop.png";
-import logoMobile from "../../images/logo-mobile.png";
+import logoDesktop from '../../images/logo-desktop.png';
+import logoMobile from '../../images/logo-mobile.png';
 
 export default function Header({
   loggedIn,

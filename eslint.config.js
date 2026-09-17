@@ -17,5 +17,9 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+    quotes: ['error', 'single'],
+    'jsx-quotes': ['error', 'prefer-single'],
+    },
   },
 ])
