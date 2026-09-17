@@ -37,6 +37,39 @@
   opacity: 0.6;
 }
 
+.nav__user {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: #ffffff;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.nav__email {
+  font-weight: 500;
+}
+
+.nav__logout {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #a9a9a9;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav__logout:hover {
+  opacity: 0.6;
+}
+
 @media screen and (min-width: 581px) and (max-width: 900px) {
   .nav__logo-desktop {
     width: 581px;

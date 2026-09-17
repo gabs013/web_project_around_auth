@@ -1,7 +1,8 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { register, authorize, checkToken, } from "../utils/auth";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
-import { useEffect, useState } from "react";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import Header from "./Header/Header";
@@ -12,35 +13,73 @@ import EditAvatar from "./Main/components/forms/Avatar/EditAvatar";
 import NewCard from "./Main/components/forms/NewCard/NewCard";
 import ImagePopup from "./Main/components/forms/ImagePopup/ImagePopup";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import InfoTooltip from "./InfoTooltip/InfoTooltip";
 
 function App() {
+
+  const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState({});
   const [popupContent, setPopupContent] = useState(null);
   const [cards, setCards] = useState([]);
-  const [loggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
+
+  //Efecto para corroborar el token y, en base a eso mantener una sesión abierta.
+  useEffect(() => {
+  const token = localStorage.getItem('jwt');
+
+  if (!token) {
+    return;
+  }
+
+  checkToken(token)
+    .then((response) => {
+      setLoggedIn(true);
+      setEmail(response.data.email);
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error(error);
+      localStorage.removeItem('jwt');
+      setLoggedIn(false);
+      setEmail('');
+    });
+}, [navigate]);
 
   useEffect(() => {
+
+    if (!loggedIn) {
+      return;
+    }
+
     api
       .getUserInfo()
       .then((data) => {
-      setCurrentUser(data);
+        setCurrentUser(data);
       })
       .catch((error) => {
-      console.error(error);
+        console.error(error);
     });
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
+
+    if (!loggedIn) {
+      return;
+    }
+
     api
       .getInitialCards()
       .then((data) => {
-      setCards(data);
+        setCards(data);
       })
       .catch((error) => {
-      console.error(error);
-    });
-  }, []);
+        console.error(error);
+      });
+  }, [loggedIn]);
 
   const handleUpdateUser = (data) => {
     api
@@ -150,6 +189,48 @@ function App() {
     });
   }
 
+  function handleRegister(data) {
+    register(data)
+      .then(() => {
+        setIsRegistrationSuccessful(true);
+        setIsInfoTooltipOpen(true);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsRegistrationSuccessful(false);
+        setIsInfoTooltipOpen(true);
+      });
+  }
+
+  function handleLogin(data) {
+    authorize(data)
+      .then((response) => {
+        localStorage.setItem('jwt', response.token);
+      setLoggedIn(true);
+      setEmail(data.email);
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  function handleCloseInfoTooltip() {
+    setIsInfoTooltipOpen(false);
+
+    if (isRegistrationSuccessful) {
+      navigate('/signin');
+    }
+  }
+
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    setEmail('');
+    setCurrentUser({});
+    setCards([]);
+    navigate('/signin');
+  }
 
   
   return (
@@ -163,13 +244,17 @@ function App() {
 
       <div className="page">
 
-        <Header/>
+        <Header
+          loggedIn={loggedIn}
+          email={email}
+          onSignOut={handleSignOut}
+        />
 
         <Routes>
 
-          <Route path='/signin' element={<Login/>} />
+          <Route path='/signin' element={<Login onLogin={handleLogin} />} />
 
-          <Route path='/signup' element={<Register/>} />
+          <Route path='/signup' element={<Register onRegister={handleRegister} />} />
 
           <Route
             path='/'
@@ -200,6 +285,13 @@ function App() {
           />
 
         </Routes>
+
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={handleCloseInfoTooltip}
+          isSuccess={isRegistrationSuccessful}
+        />
+
       </div>
     </CurrentUserContext.Provider>
   );

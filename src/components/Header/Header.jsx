@@ -2,7 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import logoDesktop from "../../images/logo-desktop.png";
 import logoMobile from "../../images/logo-mobile.png";
 
-export default function Header() {
+export default function Header({
+  loggedIn,
+  email,
+  onSignOut,
+}) {
 
   const location = useLocation();
 
@@ -29,11 +33,25 @@ export default function Header() {
             className="nav__logo-mobile"
           />
 
-           {showAuthLink && (
-          <Link to={linkPath} className='nav__auth-link'>
-            {linkText}
-          </Link>
-          )}
+           {loggedIn ? (
+              <div className='nav__user'>
+                <span className='nav__email'>{email}</span>
+
+                <button
+                  type='button'
+                  className='nav__logout'
+                  onClick={onSignOut}
+                >
+                  Cerrar sesión
+                </button>
+              </div>
+            ) : (
+              showAuthLink && (
+                <Link to={linkPath} className='nav__auth-link'>
+                  {linkText}
+                </Link>
+              )
+            )}
 
         </nav>
         
